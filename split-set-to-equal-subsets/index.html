@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>March 21, 2019 | Split Set to Equal Subsets | AlgoDaily</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>Check the console log</h1>
+
+    <!-- 
+      We're given a set in the form of an array with a unique integers. Can you write a function that tells us whether it can be separated into two subsets whose elements have equal sums?
+
+      There can not still be equal subsets if the maximum element in the array is bigger than half of the sum
+    -->
+    
+
+    <script type="text/javascript">
+      const newSet = [5, 9, 7, 3, 2, 54];
+      let sortedArray = [];
+      const getSum = (total, num) => total + num;
+      
+      function bubbleSort(arr) {
+        console.log(`Unsorted array: ${arr}`);
+        let swapped;
+        do {
+          swapped = false;
+          for (let i = 0; i <= arr.length; i++) {
+            if (arr[i] > arr[i+1]) {
+              let temp = arr[i];
+              arr[i] = arr[i+1];
+              arr[i+1] = temp;
+              swapped = true;
+            }
+          }
+        } while (swapped);
+        sortedArray.push(arr);
+        console.log(`Sorted array: ${sortedArray[0]}`);
+        checkMaxElement(sortedArray[0]);
+      }
+
+      function checkMaxElement(arr){
+        maxElement = arr[arr.length - 1];
+        console.log(`Highest value =  ${maxElement}`);
+        hasEqualSubsets(maxElement, arr);
+      }
+
+      function hasEqualSubsets(maxElement, arr) {
+        hasEqual = false;
+        const total = arr.reduce(getSum);
+        console.log(`Total sum = ${total}`);
+        if (maxElement <= (total / 2)) {
+          hasEqual = true;
+        }
+        console.log(`Can the set of numbers be split into two subsets that have equal sums? ${hasEqual}`);
+      }
+
+      bubbleSort(newSet);
+    </script>
+  </body>
+</html> 
