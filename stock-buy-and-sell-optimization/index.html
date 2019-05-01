@@ -14,15 +14,38 @@
       
       Given the ability to only buy once and sell once, our goal is to maximize the amount of profit (purchase price - selling price) that we can attain and return that value. Note: we cannot sell a stock before we buy one.
 
-      E.g., stockOptimizer([ 10, 7, 6, 2, 9, 4 ])  Answer = 7, because we must buy on "2" and sell on "9" which gives a max profit of 7.
+      E.g., stockOptimizer([10, 7, 6, 2, 9, 4])  Answer = 7, because we must buy on "2" and sell on "9" which gives a max profit of 7.
       E.g., stockOptimizer([9, 8, 6, 5, 3]) Answer = 0, we cannot generate a profit here because we must buy first, and then the price drops every day.
+
+      Essentially we want to keep track of the greatest difference possible between numbers.  Start by finding a max and a min in the right order by iterating through each element and checking the difference between it and only greater numbers after it.
     -->
     
 
     <script type="text/javascript">
+      const prices = [10, 7, 6, 2, 9, 4];
 
+      function display(arr) {
+        console.log(`Stock prices\nMust buy before sell; can only buy once and sell once.`);
+        arr.forEach(function(element, index) {
+          console.log(`Day ${index+1}: $${element}`);
+        })
+      }
+        
+      function stockOptimizer(stocks){
+        let profit = 0; // Initialize variable as 0 because it will be used as a number comparison throughout iterations
+        for (let i = 0; i < stocks.length; i++) {  // Iterates through all the days
+          for (let j = i + 1; j < stocks.length; j++) {  // Iterates through the following day so that it can be compared to the previous day, this nested loop is O(n^2)
+            let diff = stocks[j] - stocks[i];  // Compare day with following day and store the difference
+            if (diff > profit) {  // If that difference is the largest profit so far...
+              profit = diff;  // ...store it as the profit
+            }
+          }
+        }
+        console.log(`Maximum profit: ${profit}`);
+      }
 
-
+      display(prices);
+      stockOptimizer(prices);
     </script>
   </body>
 </html> 
